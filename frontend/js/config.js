@@ -9,12 +9,9 @@ const CONFIG = (function() {
         return { API_BASE_URL: '/api' };
     }
     
-    // Render.com deployment (auto-detect)
-    // Frontend: ufm-frontend.onrender.com
-    // Backend: ufm-backend.onrender.com
+    // Render.com deployment
     if (hostname.includes('.onrender.com')) {
-        const backendUrl = hostname.replace('ufm-frontend', 'ufm-backend');
-        return { API_BASE_URL: `https://${backendUrl}/api` };
+        return { API_BASE_URL: 'https://ufm-backend-latest.onrender.com/api' };
     }
     
     // Vercel deployment (needs manual backend URL)
