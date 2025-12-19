@@ -1,0 +1,44 @@
+# Render Blueprint - Deploy entire application
+# https://render.com/docs/blueprint-spec
+
+services:
+  # Backend API
+  - type: web
+    name: ufm-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: MONGODB_URI
+        sync: false  # Set manually in dashboard
+      - key: JWT_SECRET_KEY
+        generateValue: true  # Auto-generate secure value
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false  # Set manually in dashboard
+      - key: CORS_ORIGINS
+        value: "*"  # Will update after getting frontend URL
+      - key: UPLOAD_DIR
+        value: static/uploads
+      - key: IMAGE_CROP_WIDTH
+        value: "450"
+      - key: IMAGE_CROP_HEIGHT
+        value: "350"
+    healthCheckPath: /health
+
+  # Frontend Static Site
+  - type: web
+    name: ufm-frontend
+    runtime: static
+    buildCommand: echo "No build needed"
+    staticPublishPath: ./frontend
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+

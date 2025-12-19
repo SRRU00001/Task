@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ufm_backend
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - UPLOAD_DIR=${UPLOAD_DIR:-static/uploads}
+      - IMAGE_CROP_WIDTH=${IMAGE_CROP_WIDTH:-450}
+      - IMAGE_CROP_HEIGHT=${IMAGE_CROP_HEIGHT:-350}
+    volumes:
+      - ./backend/app/static/uploads:/app/app/static/uploads
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - ufm_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: ufm_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - ufm_network
+
+networks:
+  ufm_network:
+    driver: bridge
+

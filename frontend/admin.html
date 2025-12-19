@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFM - Admin Panel</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <h1>Admin Login</h1>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <div id="login-error" class="login-error" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel" style="display: none;">
+        <header class="admin-header">
+            <div class="container">
+                <h1>UFM Admin Panel</h1>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <div id="admin-message" class="admin-message" style="display: none;"></div>
+
+        <div class="container">
+            <!-- Project Management -->
+            <section class="admin-section">
+                <h2 id="project-form-title">Add New Project</h2>
+                <form id="project-form" class="admin-form">
+                    <div class="form-group">
+                        <label for="project-name">Project Name</label>
+                        <input type="text" id="project-name" name="project-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-description">Description</label>
+                        <textarea id="project-description" name="project-description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-image">Project Image</label>
+                        <input type="file" id="project-image" name="project-image" accept="image/*">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Save Project</button>
+                        <button type="button" id="project-form-reset" class="reset-btn">Reset</button>
+                    </div>
+                </form>
+
+                <h3>Existing Projects</h3>
+                <div id="projects-list" class="admin-list">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Client Management -->
+            <section class="admin-section">
+                <h2 id="client-form-title">Add New Client</h2>
+                <form id="client-form" class="admin-form">
+                    <div class="form-group">
+                        <label for="client-name">Client Name</label>
+                        <input type="text" id="client-name" name="client-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-description">Description</label>
+                        <textarea id="client-description" name="client-description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-designation">Designation</label>
+                        <input type="text" id="client-designation" name="client-designation" placeholder="e.g., CEO, Web Developer, Designer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-image">Client Image</label>
+                        <input type="file" id="client-image" name="client-image" accept="image/*">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Save Client</button>
+                        <button type="button" id="client-form-reset" class="reset-btn">Reset</button>
+                    </div>
+                </form>
+
+                <h3>Existing Clients</h3>
+                <div id="clients-list" class="admin-list">
+                    <!-- Clients will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Contact Form Details -->
+            <section class="admin-section">
+                <h2>Contact Form Submissions</h2>
+                <div id="contacts-list" class="admin-list">
+                    <!-- Contacts will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Newsletter Subscriptions -->
+            <section class="admin-section">
+                <h2>Newsletter Subscriptions</h2>
+                <div id="newsletters-list" class="admin-list">
+                    <!-- Newsletters will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
+
